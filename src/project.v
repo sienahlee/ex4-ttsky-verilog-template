@@ -5,7 +5,7 @@
 
 `default_nettype none
 
-module tt_um_example (
+module tt_um_sienahlee (
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
     input  wire [7:0] uio_in,   // IOs: Input path
@@ -17,11 +17,15 @@ module tt_um_example (
 );
 
   // All output pins must be assigned. If not used, assign to 0.
-  assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
-  assign uio_out = 0;
-  assign uio_oe  = 0;
+  // assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
+  wire error_sig; 
+  assign uio_out = {7'd0, error_sig};
+  assign uio_oe  = 8'b0000_0001;
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, clk, rst_n, 1'b0};
+  wire _unused = &{ena, uio_in[7:3], uio_in[0], 1'b0}; // uio_in[0] unused now
+
+  RangeFinder #(.WIDTH(8)) test (.data_in(ui_in), .clock(clk), .reset_n(rst_n), .go(uio_in[1]), .finish(uio_in[2]), .range(uo_out), .error(error_sig));
+
 
 endmodule
