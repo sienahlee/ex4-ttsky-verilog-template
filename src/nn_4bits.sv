@@ -117,9 +117,6 @@ module tiny_nn
   logic start_mac0, start_mac1, sel_layer, store_layer0, store_layer1;
   logic done_mac0, done_mac1; 
   enum logic [2:0] {IDLE, LAYER0, LOAD0, LAYER1, LOAD1, DONE} state, nextState; 
-
-  assign in_done = (state == DONE);
-  assign in_idle = (state == IDLE);
   
   always_ff @(posedge clk) begin
     if (~rst_n) state <= IDLE;
