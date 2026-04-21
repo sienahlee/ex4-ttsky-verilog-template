@@ -1,9 +1,9 @@
 # Tiny Tapeout project information
 project:
-  title:        "ex4-sienahlee-task1"      # Project title
+  title:        "18244-s26-tiny-nn"      # Project title
   author:       "siena"      # Your name
   discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  "task1 for exercise 4; trying to synthesize RangeFinder"      # One line description of what your project does
+  description:  "a tiny NN that determines if a point is inside or outside a circle boundary"      # One line description of what your project does
   language:     "SystemVerilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
   clock_hz:     25000000       # Clock frequency in Hz (or 0 if not applicable)
 
@@ -18,35 +18,38 @@ project:
   # Don't forget to also update `PROJECT_SOURCES` in test/Makefile.
   source_files:
     - "project.v"
-    - "RangeFinder.sv"
+    - "nn_4bits.sv"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
 pinout:
-  # Inputs
-  ui[0]: "data_in[0]"
-  ui[1]: "data_in[1]"
-  ui[2]: "data_in[2]"
-  ui[3]: "data_in[3]"
-  ui[4]: "data_in[4]"
-  ui[5]: "data_in[5]"
-  ui[6]: "data_in[6]"
-  ui[7]: "data_in[7]"
+  ### Inputs
+  #   switches
+  ui[0]: "in[0]"
+  ui[1]: "in[1]"
+  ui[2]: "in[2]"
+  ui[3]: "in[3]"
+  #   buttons
+  ui[4]: "btn[0]"
+  ui[5]: "btn[1]"
+  ui[6]: "btn[2]"
+  ui[7]: "btn[3]"
 
-  # Outputs
-  uo[0]: "range[0]"
-  uo[1]: "range[1]"
-  uo[2]: "range[2]"
-  uo[3]: "range[3]"
-  uo[4]: "range[4]"
-  uo[5]: "range[5]"
-  uo[6]: "range[6]"
-  uo[7]: "range[7]"
+  ### Outputs
+  #   leds
+  uo[0]: "valid"
+  uo[1]: "inside_circle"
+  uo[2]: ""
+  uo[3]: ""
+  uo[4]: ""
+  uo[5]: ""
+  uo[6]: ""
+  uo[7]: ""
 
   # Bidirectional pins
-  uio[0]: "error"
-  uio[1]: "go"
-  uio[2]: "finish"
+  uio[0]: ""
+  uio[1]: ""
+  uio[2]: ""
   uio[3]: ""
   uio[4]: ""
   uio[5]: ""

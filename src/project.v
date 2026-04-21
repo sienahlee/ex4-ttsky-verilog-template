@@ -16,16 +16,25 @@ module tt_um_sienahlee (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-  // All output pins must be assigned. If not used, assign to 0.
-  // assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
-  wire error_sig; 
-  assign uio_out = {7'd0, error_sig};
-  assign uio_oe  = 8'b0000_0001;
+  // Internal signal declarations
+  wire valid, inside_circle;
 
-  // List all unused inputs to prevent warnings
-  wire _unused = &{ena, uio_in[7:3], uio_in[0], 1'b0}; // uio_in[0] unused now
+  // Route outputs: valid -> uo_out[0], inside_circle -> uo_out[1], rest unused
+  assign uo_out  = {6'b0, inside_circle, valid};
 
-  RangeFinder #(.WIDTH(8)) test (.data_in(ui_in), .clock(clk), .reset_n(rst_n), .go(uio_in[1]), .finish(uio_in[2]), .range(uo_out), .error(error_sig));
+  // Bidir pins unused — all set to input mode, outputs driven to 0
+  assign uio_out = 8'b0;
+  assign uio_oe  = 8'b0;
 
+  // Tie off unused inputs to prevent warnings
+  wire _unused = &{ena, rst_n, uio_in, ui_in[7:4], 1'b0};
+
+  tiny_nn dut (
+    .clk          (clk),
+    .in           (ui_in[3:0]),   // lower 4 bits of ui_in
+    .btn          (ui_in[7:4]),   // upper 4 bits of ui_in (per your pinout)
+    .valid        (valid),
+    .inside_circle(inside_circle)
+  );
 
 endmodule
