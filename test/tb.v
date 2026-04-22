@@ -29,7 +29,6 @@ module tb ();
 
   // Replace tt_um_example with your module name:
   tt_um_sienahlee user_project (
-
       // Include power ports for the Gate Level test:
 `ifdef GL_TEST
       .VPWR(VPWR),
