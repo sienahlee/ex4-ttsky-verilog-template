@@ -79,7 +79,9 @@ module tiny_nn
   4.0954 -> saturate to 3.5
   ***/
   logic [3:0] B1 [0:0];
-  assign B1[0] = 4'b0111;
+  always_comb begin
+    B1[0] = 4'b0111;
+  end
 
   ///////////////////////////////////////////////////////////
   /////////////////////// LOAD INPUTS ///////////////////////
@@ -225,7 +227,9 @@ module mul
   logic overflow; 
   logic [3:0] prod [MAT_ROWS-1:0];
   logic [3:0] prod_to_add [MAT_ROWS-1:0]; 
-  logic [7:0]  temp_prod;       
+  /* verilator lint_off UNUSEDSIGNAL */
+  logic [7:0] temp_prod;
+  /* verilator lint_on UNUSEDSIGNAL */    
   logic [3:0]  fixed_val_prod, temp_sum, fin_sum, fin_acc; 
 
   always_ff @(posedge clk) begin
