@@ -79,7 +79,9 @@ module tiny_nn
   4.0954 -> saturate to 3.5
   ***/
   logic [3:0] B1;
-  assign B1 = 4'b0111;
+  always_comb begin
+    B1 = 4'b0111;
+  end
 
   ///////////////////////////////////////////////////////////
   /////////////////////// LOAD INPUTS ///////////////////////
@@ -205,7 +207,7 @@ module tiny_nn
 
   relu activation (.in(mac_out0), .out(relu_out));
 
-  mul #(.MAT_ROWS(1), .MAT_COLS(6)) phase1 (.W(W1), .B('{B1}), .in(layer0_nodes),
+  mul #(.MAT_ROWS(1), .MAT_COLS(6)) phase1 (.W(W1), .B({B1}), .in(layer0_nodes),
                                             .clk, .rst_n, .start_mac(start_mac1),
                                             .mac_out(mac_out1), .done_mac(done_mac1));
 
