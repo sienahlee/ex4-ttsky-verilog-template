@@ -103,7 +103,8 @@ module tiny_nn
   // set coordinates
   always_ff @(posedge clk) begin
     if (!rst_n) begin
-      coor <= '{default: '0}; 
+      coor[0] <= 4'd0;
+      coor[1] <= 4'd0; 
     end
     else begin
       if (load_x0) coor[0][3:0] <= in; 
@@ -181,8 +182,13 @@ module tiny_nn
 
   always_ff @(posedge clk) begin
     if (~rst_n) begin
-      layer0_nodes <= '{default: '0};
-      layer1_node  <= '{default: '0}; 
+      layer0_nodes[5] <= 4'd0;
+      layer0_nodes[4] <= 4'd0;
+      layer0_nodes[3] <= 4'd0;
+      layer0_nodes[2] <= 4'd0;
+      layer0_nodes[1] <= 4'd0;
+      layer0_nodes[0] <= 4'd0;
+      layer1_node[0]  <= 4'd0; 
     end
     else begin
       if      (store_layer0) layer0_nodes <= relu_out; 
@@ -224,7 +230,9 @@ module mul
 
   always_ff @(posedge clk) begin
     if (~rst_n) begin
-      prod_to_add <= '{default: '0}; 
+      for (int i = 0; i < MAT_ROWS; i++) begin
+        prod_to_add[i] <= 4'd0; 
+      end
       done_mac    <= 'd0; 
     end
     else begin
