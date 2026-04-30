@@ -14,7 +14,7 @@ Network architecture: The network has two layers. Layer 0 is a 2-input, 6-neuron
 
 Fixed-point arithmetic: All arithmetic uses 4-bit signed fixed-point values. The mul module performs saturating multiply-accumulate: products are scaled by right-shifting 2 bits. All computation overflow is clamped to min/max values, keeping all intermediate values in range without needing wider datapaths.
 
-Control flow: A 6-state FSM sequences the computation (idle, start, layer0, layer1, etc), orchestrating the inputs and outputs of each layer and asserting done once everything is completed.
+Control flow: A 6-state FSM sequences the computation (idle, layer0, layer1, etc), orchestrating the inputs and outputs of each layer and asserting done once everything is completed.
 
 ## How to test
 
