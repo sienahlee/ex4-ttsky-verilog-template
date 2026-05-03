@@ -31,4 +31,4 @@ To run another inference, assert rst_n (ui_in[7]). Note that the switch inputs a
 ## External hardware
 4 switches — sets the 4-bit coordinate value before each load (ui_in[3:0])
 4 push buttons — connected to ui_in[7:4]: rst_n (ui_in[7]), start (ui_in[6]), load X (ui_in[5]), load Y (ui_in[4])
-2 LEDs — one for valid (inference complete) and one for inside_circle (classification result)
+2 LEDs — one for valid (inference complete, uo[0]) and one for inside_circle (classification result, uo[1] - on if inside, off if outside)
