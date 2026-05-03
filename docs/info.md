@@ -16,17 +16,19 @@ Fixed-point arithmetic: All arithmetic uses 4-bit signed fixed-point values. The
 
 Control flow: A 6-state FSM sequences the computation (idle, layer0, layer1, etc), orchestrating the inputs and outputs of each layer and asserting done once everything is completed.
 
+The frequency requirements of the clock for this design is 25 MHz.  
+
 ## How to test
 
-Reset: Hold btn[3] to reset all registers and the FSM (active low).
-Load X coordinate: Set your 4-bit X value on the switches, then pulse btn[1] high.
-Load Y coordinate: Set your 4-bit Y value on the switches, then pulse btn[0] high.
-Run inference: Pulse btn[2] to start the inference. The FSM will sequence through both MAC layers automatically.
+Reset: Hold ui_in[7] to reset all registers and the FSM (active low).
+Load X coordinate: Set your 4-bit X value on the switches, then pulse ui_in[5] high.
+Load Y coordinate: Set your 4-bit Y value on the switches, then pulse ui_in[4] high.
+Run inference: Pulse ui_in[6] to start the inference. The FSM will sequence through both MAC layers automatically.
 Read result: Once valid goes high, read inside_circle (both on the LED). A 1 means the point is classified as inside the circle; a 0 means outside.
 
-To run another inference, assert rst_n (btn[3]). 
+To run another inference, assert rst_n (ui_in[7]). Note that the switch inputs are signed in Q2.1, with 1 sign-bit (ui_in[3]), 2 int bits (ui_in[2:1]), and 1 fractional bit (ui_in[0]). 
 
 ## External hardware
-4 switches — sets the 4-bit coordinate value before each load
-4 push buttons — connected to btn[3:0]: rst_n (btn[3]), start (btn[2]), load X (btn[1]), load Y (btn[0])
+4 switches — sets the 4-bit coordinate value before each load (ui_in[3:0])
+4 push buttons — connected to ui_in[7:4]: rst_n (ui_in[7]), start (ui_in[6]), load X (ui_in[5]), load Y (ui_in[4])
 2 LEDs — one for valid (inference complete) and one for inside_circle (classification result)

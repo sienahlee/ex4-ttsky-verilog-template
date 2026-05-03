@@ -27,7 +27,7 @@ module tt_um_sienahlee (
   assign uio_oe  = 8'b0;
 
   // Tie off unused inputs to prevent warnings
-  wire _unused = &{ena, rst_n, uio_in, ui_in[7:4], 1'b0};
+  wire _unused = &{ena, rst_n, uio_in, 1'b0};
 
   tiny_nn dut (
     .clk          (clk),
